@@ -24,3 +24,55 @@ functions:
   delete: notes-api-prod-delete
 layers:
   None
+  
+      Pool Id us-east-1_fhw1HyiMU
+    Pool ARN arn:aws:cognito-idp:us-east-1:387944088597:userpool/us-east-1_fhw1HyiMU
+
+App Client ID 
+4ecrncn4litjq8krcg4opkbla6
+
+9uka9bg9p9
+
+identity pool id us-east-1:b20a7bdf-f86a-4036-8982-10cb76201b27
+
+
+---api test ---
+
+npx aws-api-gateway-cli-test --username admin@example.com --password Passw0rd! --user-pool-id us-east-1_fhw1HyiMU --app-client-id 4ecrncn4litjq8krcg4opkbla6 --cognito-region us-east-1 --identity-pool-id us-east-1:b20a7bdf-f86a-4036-8982-10cb76201b27 --invoke-url https://9uka9bg9p9.execute-api.us-east-1.amazonaws.com/prod --api-gateway-region us-east-1 --path-template /notes --method POST --body "{\"content\":\"hello world\",\"attachment\":\"hello.jpg\"}"
+
+---------------------------------
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "mobileanalytics:PutEvents",
+        "cognito-sync:*",
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "S3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::notes-app-jeffbob3/private/${cognito-identity.amazonaws.com:sub}/*"
+      ]
+   },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "execute-api:Invoke"
+      ],
+      "Resource": [
+        "arn:aws:execute-api:us-east-1:*:9uka9bg9p9/*/*/*"
+      ]
+   }
+  ]
+}
